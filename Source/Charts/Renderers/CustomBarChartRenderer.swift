@@ -240,16 +240,39 @@ public class CustomBarChartRenderer: BarChartRenderer {
 
                 context.setFillColor(dataSet.barShadowColor.cgColor)
                 // Corner Radius for the bar charts
-                 if (j % 4 == 0) {
+                if ( j % 4 == 0 && buffer.rects.count - 3 > j ) {
                     // bottom of the bar chart
-                    let bezierPath = UIBezierPath(roundedRect: barRect, byRoundingCorners: [.bottomRight, .bottomLeft], cornerRadii: CGSize(width: 5.0, height: 0.0))
-                    context.addPath(bezierPath.cgPath)
+                    if (buffer.rects[j+1].height == 0 && buffer.rects[j+2].height == 0 && buffer.rects[j+3].height == 0){
+                        let bezierPath = UIBezierPath(roundedRect: buffer.rects[j], cornerRadius: 5.0)
+                        context.addPath(bezierPath.cgPath)
+                    }else if (buffer.rects[j].height == 0 && buffer.rects[j+2].height == 0 && buffer.rects[j+3].height == 0){
+                        let bezierPath = UIBezierPath(roundedRect: buffer.rects[j+1], cornerRadius: 5.0)
+                        context.addPath(bezierPath.cgPath)
+                    }else if (buffer.rects[j].height == 0 && buffer.rects[j+1].height == 0 && buffer.rects[j+3].height == 0){
+                        let bezierPath = UIBezierPath(roundedRect: buffer.rects[j+2], cornerRadius: 5.0)
+                        context.addPath(bezierPath.cgPath)
+                    }else if (buffer.rects[j].height == 0 && buffer.rects[j+1].height == 0 && buffer.rects[j+2].height == 0){
+                        let bezierPath = UIBezierPath(roundedRect: buffer.rects[j+3], cornerRadius: 5.0)
+                        context.addPath(bezierPath.cgPath)
+                    }else{
+                        let bezierPath = UIBezierPath(roundedRect: barRect, byRoundingCorners: [.bottomRight, .bottomLeft], cornerRadii: CGSize(width: 5.0, height: 0.0))
+                        context.addPath(bezierPath.cgPath)
+                    }
+                    
                 }else if (j % 4 == 3 ){
                     //middle of the bar chart
                     let bezierPath = UIBezierPath(roundedRect: barRect, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 5.0, height: 0.0))
-
+                    
                     context.addPath(bezierPath.cgPath)
-                }else  {
+                }else if (j % 4 == 1 && buffer.rects[j-1].height == 0){
+                    let bezierPath = UIBezierPath(roundedRect: buffer.rects[j], byRoundingCorners: [.bottomRight, .bottomLeft], cornerRadii: CGSize(width: 5.0, height: 0.0))
+                    
+                    context.addPath(bezierPath.cgPath)
+                }else if (j % 4 == 2 && buffer.rects[j+1].height == 0){
+                    let bezierPath = UIBezierPath(roundedRect: buffer.rects[j], byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 5.0, height: 0.0))
+                    
+                    context.addPath(bezierPath.cgPath)
+                }else{
                     //top of the bar chart
                     let bezierPath = UIBezierPath(roundedRect: barRect, byRoundingCorners: [.bottomRight, .bottomLeft], cornerRadii: CGSize(width: 0.0, height: 0.0))
                     context.addPath(bezierPath.cgPath)
@@ -292,14 +315,37 @@ public class CustomBarChartRenderer: BarChartRenderer {
                 context.setFillColor(dataSet.color(atIndex: j).cgColor)
             }
             // Corner Radius for the bar charts
-            if (j % 4 == 0) {
+            if ( j % 4 == 0 && buffer.rects.count - 3 > j ) {
                 // bottom of the bar chart
-                let bezierPath = UIBezierPath(roundedRect: barRect, byRoundingCorners: [.bottomRight, .bottomLeft], cornerRadii: CGSize(width: 5.0, height: 0.0))
-                context.addPath(bezierPath.cgPath)
+                if (buffer.rects[j+1].height == 0 && buffer.rects[j+2].height == 0 && buffer.rects[j+3].height == 0){
+                    let bezierPath = UIBezierPath(roundedRect: buffer.rects[j], cornerRadius: 5.0)
+                    context.addPath(bezierPath.cgPath)
+                }else if (buffer.rects[j].height == 0 && buffer.rects[j+2].height == 0 && buffer.rects[j+3].height == 0){
+                    let bezierPath = UIBezierPath(roundedRect: buffer.rects[j+1], cornerRadius: 5.0)
+                    context.addPath(bezierPath.cgPath)
+                }else if (buffer.rects[j].height == 0 && buffer.rects[j+1].height == 0 && buffer.rects[j+3].height == 0){
+                    let bezierPath = UIBezierPath(roundedRect: buffer.rects[j+2], cornerRadius: 5.0)
+                    context.addPath(bezierPath.cgPath)
+                }else if (buffer.rects[j].height == 0 && buffer.rects[j+1].height == 0 && buffer.rects[j+2].height == 0){
+                    let bezierPath = UIBezierPath(roundedRect: buffer.rects[j+3], cornerRadius: 5.0)
+                    context.addPath(bezierPath.cgPath)
+                }else{
+                    let bezierPath = UIBezierPath(roundedRect: barRect, byRoundingCorners: [.bottomRight, .bottomLeft], cornerRadii: CGSize(width: 5.0, height: 0.0))
+                    context.addPath(bezierPath.cgPath)
+                }
+                
             }else if (j % 4 == 3 ){
                 //middle of the bar chart
                 let bezierPath = UIBezierPath(roundedRect: barRect, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 5.0, height: 0.0))
-
+                
+                context.addPath(bezierPath.cgPath)
+            }else if (j % 4 == 1 && buffer.rects[j-1].height == 0){
+                let bezierPath = UIBezierPath(roundedRect: buffer.rects[j], byRoundingCorners: [.bottomRight, .bottomLeft], cornerRadii: CGSize(width: 5.0, height: 0.0))
+                
+                context.addPath(bezierPath.cgPath)
+            }else if (j % 4 == 2 && buffer.rects[j+1].height == 0){
+                let bezierPath = UIBezierPath(roundedRect: buffer.rects[j], byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 5.0, height: 0.0))
+                
                 context.addPath(bezierPath.cgPath)
             }else{
                 //top of the bar chart
