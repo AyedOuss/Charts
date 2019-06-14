@@ -16,12 +16,15 @@ public class CustomBarChartXAxis : XAxisRenderer  {
     public var highlight:Highlight?
     
     public var indexXAxis:Int?
+    public var indexCount:Int?
     
-    public  init(viewPortHandler: ViewPortHandler, xAxis: XAxis?, transformer: Transformer?,indexXAxis:Int?) {
+    public  init(viewPortHandler: ViewPortHandler, xAxis: XAxis?, transformer: Transformer?,indexXAxis:Int?,indexCount:Int) {
         super.init(viewPortHandler: viewPortHandler, xAxis: xAxis, transformer: transformer)
         if let indexXaxis = indexXAxis {
             self.indexXAxis = indexXaxis
         }
+        self.indexCount  = indexCount
+        
     }
 
     /// draws the x-labels on the specified y-position
@@ -58,9 +61,8 @@ public class CustomBarChartXAxis : XAxisRenderer  {
             labelMaxSize.width = xAxis.wordWrapWidthPercent * valueToPixelMatrix.a
         }
         
-        let entries = xAxis.entries
         
-        for i in stride(from: 0, to: entries.count, by: 1)
+        for i in 0...self.indexCount!
         {
             
             
@@ -74,28 +76,22 @@ public class CustomBarChartXAxis : XAxisRenderer  {
                               NSAttributedString.Key.paragraphStyle: paraStyle]
             }
             
-            if centeringEnabled
-            {
-                position.x = CGFloat(xAxis.centeredEntries[i])
-            }
-            else
-            {
-                position.x = CGFloat(entries[i])
-            }
+            position.x = CGFloat(i)
+            
             
             position.y = 0.0
             position = position.applying(valueToPixelMatrix)
             
             if viewPortHandler.isInBoundsX(position.x)
             {
-                let label = xAxis.valueFormatter?.stringForValue(xAxis.entries[i], axis: xAxis) ?? ""
+                let label = xAxis.valueFormatter?.stringForValue(Double(i), axis: xAxis) ?? ""
                 
                 let labelns = label as NSString
                 
                 if xAxis.isAvoidFirstLastClippingEnabled
                 {
                     // avoid clipping of the last
-                    if i == xAxis.entryCount - 1 && xAxis.entryCount > 1
+                    if i == indexCount! - 1 && indexCount! > 1
                     {
                         let width = labelns.boundingRect(with: labelMaxSize, options: .usesLineFragmentOrigin, attributes: labelAttrs, context: nil).size.width
                         
