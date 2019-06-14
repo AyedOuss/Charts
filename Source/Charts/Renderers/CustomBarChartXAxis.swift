@@ -46,7 +46,6 @@ public class CustomBarChartXAxis : XAxisRenderer  {
                                                           NSAttributedString.Key.paragraphStyle: paraStyle]
         let labelRotationAngleRadians = xAxis.labelRotationAngle.DEG2RAD
         
-        let centeringEnabled = xAxis.isCenterAxisLabelsEnabled
         
         let valueToPixelMatrix = transformer.valueToPixelMatrix
         

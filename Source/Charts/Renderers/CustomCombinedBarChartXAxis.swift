@@ -17,11 +17,14 @@ public class CustomCombinedBarChartXAxis : XAxisRenderer  {
     
     public var indexXAxis:Int?
     
-    public  init(viewPortHandler: ViewPortHandler, xAxis: XAxis?, transformer: Transformer?,indexXAxis:Int?) {
+    public var indexCount:Int?
+    
+    public  init(viewPortHandler: ViewPortHandler, xAxis: XAxis?, transformer: Transformer?,indexXAxis:Int? , indexCount: Int) {
         super.init(viewPortHandler: viewPortHandler, xAxis: xAxis, transformer: transformer)
         if let indexXaxis = indexXAxis {
             self.indexXAxis = indexXaxis
         }
+        self.indexCount = indexCount
     }
 
     /// draws the x-labels on the specified y-position
@@ -43,7 +46,6 @@ public class CustomCombinedBarChartXAxis : XAxisRenderer  {
                                                           NSAttributedString.Key.paragraphStyle: paraStyle]
         let labelRotationAngleRadians = xAxis.labelRotationAngle.DEG2RAD
         
-        let centeringEnabled = xAxis.isCenterAxisLabelsEnabled
         
         let valueToPixelMatrix = transformer.valueToPixelMatrix
         
@@ -58,9 +60,8 @@ public class CustomCombinedBarChartXAxis : XAxisRenderer  {
             labelMaxSize.width = xAxis.wordWrapWidthPercent * valueToPixelMatrix.a
         }
         
-        let entries = xAxis.entries
         
-        for i in stride(from: 0, to: entries.count, by: 1)
+        for i in 0...self.indexCount!
         {
             
             
@@ -75,21 +76,16 @@ public class CustomCombinedBarChartXAxis : XAxisRenderer  {
                               NSAttributedString.Key.paragraphStyle: paraStyle]
             }
             
-            if centeringEnabled
-            {
-                position.x = CGFloat(xAxis.centeredEntries[i])+0.5
-            }
-            else
-            {
-                position.x = CGFloat(entries[i])+0.5
-            }
+            
+                position.x = CGFloat(i)+0.5
+            
             
             position.y = 0.0
             position = position.applying(valueToPixelMatrix)
             
             if viewPortHandler.isInBoundsX(position.x)
             {
-                let label = xAxis.valueFormatter?.stringForValue(xAxis.entries[i], axis: xAxis) ?? ""
+                let label = xAxis.valueFormatter?.stringForValue(Double(i), axis: xAxis) ?? ""
                 
                 let labelns = label as NSString
                 
