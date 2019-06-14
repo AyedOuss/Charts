@@ -77,8 +77,11 @@ public class CustomCombinedBarChartXAxis : XAxisRenderer  {
             }
             
             
+            if indexCount == 1 {
+                position.x = CGFloat(i)+0.2
+            }else{
                 position.x = CGFloat(i)+0.5
-            
+            }
             
             position.y = 0.0
             position = position.applying(valueToPixelMatrix)
@@ -111,7 +114,7 @@ public class CustomCombinedBarChartXAxis : XAxisRenderer  {
                 
                 drawLabel(context: context,
                           formattedLabel: label,
-                          x: position.x+0.5,
+                          x: position.x,
                           y: pos,
                           attributes: labelAttrs,
                           constrainedToSize: labelMaxSize,
