@@ -67,11 +67,11 @@ public class CustomBarChartXAxis : XAxisRenderer  {
             
             if let index = self.indexXAxis ,(i == index){
                 labelAttrs = [NSAttributedString.Key.font: NSUIFont(name: "Helvetica-Bold", size: 14)!,
-                              NSAttributedString.Key.foregroundColor: NSUIColor(red:0.18, green:0.73, blue:0.27, alpha:1),
+                              NSAttributedString.Key.foregroundColor: xAxis.labelTextColor ,
                               NSAttributedString.Key.paragraphStyle: paraStyle]
             }else{
                 labelAttrs = [NSAttributedString.Key.font: xAxis.labelFont,
-                              NSAttributedString.Key.foregroundColor: NSUIColor.black,
+                              NSAttributedString.Key.foregroundColor: xAxis.labelTextColor ,
                               NSAttributedString.Key.paragraphStyle: paraStyle]
             }
             
