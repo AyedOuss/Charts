@@ -94,7 +94,7 @@ open class XAxisRenderer: AxisRendererBase
         }
         else if xAxis.labelPosition == .topInside
         {
-            drawLabels(context: context, pos: viewPortHandler.contentTop + yOffset + xAxis.labelRotatedHeight, anchor: CGPoint(x: 0.5, y: 1.0))
+            drawLabels(context: context, pos: viewPortHandler.contentTop + yOffset + xAxis.labelRotatedHeight, anchor: CGPoint(x: 1.0, y: 1.0))
         }
         else if xAxis.labelPosition == .bottom
         {
